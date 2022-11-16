@@ -1,0 +1,29 @@
+{
+    "name" : "Varun",
+    "email" : "varunvis@email.com",
+    "mobile_no" : 12345678,
+    "location" : "Mumbai",
+    "role" : "user",
+    "username" : "varvis",
+    "password" : "user1pass"
+}
+
+{
+    "name" : "Rahul",
+    "email" : "rahul@email.com",
+    "mobile_no" : 12353638,
+    "location" : "Delhi",
+    "role" : "user",
+    "username" : "rahul_r",
+    "password" : "user2pass"
+}
+
+{
+    "name" : "Jay",
+    "email" : "jayy@email.com",
+    "mobile_no" : 34244242,
+    "location" : "Bangalore",
+    "role" : "admin",
+    "username" : "jayy_1",
+    "password" : "admin1pass"
+}
