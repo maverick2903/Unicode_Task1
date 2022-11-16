@@ -12,7 +12,6 @@ router.post("/signup", async (req, resp) => {
     name: req.body.name,
     email: req.body.email,
     mobile_no: req.body.mobile_no,
-    name: req.body.name,
     location: req.body.location,
     role: req.body.role,
     username: req.body.username,

@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import { Grid, Paper, TextField, Button } from "@mui/material";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 function Signup() {
+  const navigate = useNavigate();
+
   const paperStyle = {
     height: "85vh",
     width: 350,
@@ -19,6 +22,7 @@ function Signup() {
     email: "",
     phone: "",
     role: "",
+    location: "",
     username: "",
     password: "",
   });
@@ -30,12 +34,41 @@ function Signup() {
     setUser({ ...user, [name]: value });
   };
 
-  const { register, handleSubmit } = useForm();
-  const submitCheck = (data) => console.log(data);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-  const namecheck = {
-    label: "varun",
-    name: "name",
+  const submitCheck = async (data, e) => {
+    e.preventDefault();
+    const { name, email, phone, location, role, username, password } = data;
+    const resp = await fetch("/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: name,
+        email: email,
+        mobile_no: phone,
+        location: location,
+        role: role,
+        username: username,
+        password: password,
+      }),
+    });
+
+    const info = await resp.json();
+
+    if (info.status === 200) {
+      window.alert("Registration Successful");
+      console.log("Registration Successful");
+      navigate("/");
+    } else {
+      window.alert("Registration Failed");
+      console.log("Registration Failed");
+    }
   };
 
   return (
@@ -46,17 +79,20 @@ function Signup() {
           <h2>Sign Up</h2>
           <h4>Enter your details</h4>
         </Grid>
-        <form onSubmit={handleSubmit(submitCheck)}>
+        <form method="POST" onSubmit={handleSubmit(submitCheck)}>
           <TextField
             id="outlined-basic"
+            label="Name"
+            name="name"
             variant="standard"
             style={{ marginLeft: 0, marginRight: 0 }}
             margin="normal"
             fullWidth
             value={user.name}
             onInput={handleInput}
-            {...namecheck}
-            {...register("name", { required: "Required" })}
+            {...register("name", { required: "Invalid/Empty Input" })}
+            error={!!errors.name}
+            helperText={errors.name ? errors.name.message : null}
           />
           <TextField
             id="outlined-basic"
@@ -65,10 +101,19 @@ function Signup() {
             variant="standard"
             style={{ marginLeft: 0, marginRight: 0 }}
             margin="normal"
-            type={"email"}
             fullWidth
             value={user.email}
-            onChange={handleInput}
+            onInput={handleInput}
+            {...register("email", {
+              required: "Invalid/Empty Input",
+              pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                message: "Email Address Invalid",
+              },
+            })}
+            error={!!errors.email}
+            helperText={errors.email ? errors.email.message : null}
+            noValidate
           />
           <TextField
             id="outlined-basic"
@@ -79,7 +124,24 @@ function Signup() {
             margin="normal"
             fullWidth
             value={user.phone}
-            onChange={handleInput}
+            onInput={handleInput}
+            {...register("phone", { required: "Invalid/Empty Input" })}
+            error={!!errors.phone}
+            helperText={errors.phone ? errors.phone.message : null}
+          />
+          <TextField
+            id="outlined-basic"
+            label="Location"
+            name="location"
+            variant="standard"
+            style={{ marginLeft: 0, marginRight: 0 }}
+            margin="normal"
+            fullWidth
+            value={user.location}
+            onInput={handleInput}
+            {...register("location", { required: "Invalid/Empty Input" })}
+            error={!!errors.location}
+            helperText={errors.location ? errors.location.message : null}
           />
           <TextField
             id="outlined-basic"
@@ -90,7 +152,10 @@ function Signup() {
             margin="normal"
             fullWidth
             value={user.role}
-            onChange={handleInput}
+            onInput={handleInput}
+            {...register("role", { required: "Invalid/Empty Input" })}
+            error={!!errors.role}
+            helperText={errors.role ? errors.role.message : null}
           />
           <TextField
             id="outlined-basic"
@@ -101,7 +166,10 @@ function Signup() {
             margin="normal"
             fullWidth
             value={user.username}
-            onChange={handleInput}
+            onInput={handleInput}
+            {...register("username", { required: "Invalid/Empty Input" })}
+            error={!!errors.username}
+            helperText={errors.username ? errors.username.message : null}
           />
           <TextField
             id="outlined-basic"
@@ -113,7 +181,10 @@ function Signup() {
             type={"password"}
             fullWidth
             value={user.password}
-            onChange={handleInput}
+            onInput={handleInput}
+            {...register("password", { required: "Invalid/Empty Input" })}
+            error={!!errors.password}
+            helperText={errors.password ? errors.password.message : null}
           />
           <Button variant="contained" type="submit" fullWidth style={btnStyle}>
             Sign up
