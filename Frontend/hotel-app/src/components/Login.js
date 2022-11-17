@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { Grid, Paper, Avatar, TextField, Button, Box } from "@mui/material";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Login() {
+  const navigate = useNavigate();
   const paperStyle = {
     padding: 20,
     height: "60vh",
@@ -20,6 +21,32 @@ function Login() {
     FontFace: "Roboto Slab",
   };
 
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleInput = async (e) => {
+    e.preventDefault();
+    const resp = await fetch("/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username,
+        password,
+      }),
+    });
+
+    const info = await resp.json();
+    if (resp.status === 401 || !info) {
+      window.alert("Invalid username/password");
+    } else {
+      window.alert("Login Successful");
+      localStorage.setItem("jwtoken", info.token);
+      navigate("/protected");
+    }
+  };
+
   return (
     <Grid>
       <Paper elevation={10} style={paperStyle}>
@@ -29,30 +56,42 @@ function Login() {
           </Avatar>
           <h2 style={textStyle}>Log In</h2>
         </Grid>
-        <Grid>
-          <Box sx={{ display: "flex", alignItems: "flex-end" }}>
-            <AccountCircle sx={{ color: "action.active", mr: 1, my: 0.5 }} />
+        <form method="POST">
+          <Grid>
+            <Box sx={{ display: "flex", alignItems: "flex-end" }}>
+              <AccountCircle sx={{ color: "action.active", mr: 1, my: 0.5 }} />
+              <TextField
+                id="input-with-sx"
+                label="Username"
+                variant="standard"
+                required
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                fullWidth
+              />
+            </Box>
             <TextField
-              id="input-with-sx"
-              label="Username"
-              variant="standard"
               required
+              id="input-with-sx"
+              label="Password"
+              variant="standard"
+              type={"password"}
+              margin="normal"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               fullWidth
             />
-          </Box>
-          <TextField
-            required
-            id="input-with-sx"
-            label="Password"
-            variant="standard"
-            type={"password"}
-            margin="normal"
+          </Grid>
+          <Button
+            variant="contained"
+            type="submit"
             fullWidth
-          />
-        </Grid>
-        <Button variant="contained" type="submit" fullWidth style={btnStyle}>
-          Login
-        </Button>
+            style={btnStyle}
+            onClick={handleInput}
+          >
+            Login
+          </Button>
+        </form>
         New User? <Link to="/signup">Sign Up now</Link>
       </Paper>
     </Grid>

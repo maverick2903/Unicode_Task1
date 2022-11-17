@@ -60,15 +60,17 @@ function Signup() {
     });
 
     const info = await resp.json();
-
-    if (info.status === 200) {
+    console.log(info.status);
+    window.alert("Registration done");
+    navigate("/");
+    /* if (info.status === 200) {
       window.alert("Registration Successful");
       console.log("Registration Successful");
       navigate("/");
     } else {
       window.alert("Registration Failed");
       console.log("Registration Failed");
-    }
+    } */
   };
 
   return (

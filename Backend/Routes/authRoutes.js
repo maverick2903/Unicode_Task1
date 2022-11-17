@@ -5,6 +5,7 @@ const { hashSync, compareSync } = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const passport = require("passport");
+const { response } = require("express");
 require("../Authentication/passportAuth");
 
 router.post("/signup", async (req, resp) => {
@@ -57,10 +58,14 @@ router.post("/login", async (req, resp) => {
       username: user.username,
     };
     const token = jwt.sign(payload, process.env.SecretKey, { expiresIn: "1d" });
+    /*     resp.cookie("jwtoken", token, {
+      expires: new Date(Date.now() + 86400),
+      httpOnly: true,
+    }); */
     return resp.status(200).send({
       success: true,
       message: "Logged In successfully",
-      token: "Bearer " + token,
+      token: token,
     });
   });
 });
@@ -70,11 +75,8 @@ router.get(
   passport.authenticate("jwt", { session: false }),
   (req, resp) => {
     return resp.status(200).send({
-      success: true,
-      user: {
-        id: req.user._id,
-        username: req.user.username,
-      },
+      id: req.user._id,
+      username: req.user.username,
     });
   }
 );
