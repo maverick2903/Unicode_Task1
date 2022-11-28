@@ -4,7 +4,7 @@ import LockOpenIcon from "@mui/icons-material/LockOpen";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import { Link, useNavigate } from "react-router-dom";
 
-function Login() {
+function Login({ loginCheck, setLoginCheck }) {
   const navigate = useNavigate();
   const paperStyle = {
     padding: 20,
@@ -43,7 +43,8 @@ function Login() {
     } else {
       window.alert("Login Successful");
       localStorage.setItem("jwtoken", info.token);
-      navigate("/protected");
+      setLoginCheck(true);
+      navigate("/");
     }
   };
 
