@@ -10,7 +10,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Protection from "./components/Protection";
 
 function App() {
-  const [loginCheck, setLoginCheck] = useState(false);
+  const [loginCheck, setLoginCheck] = useState(true);
 
   return (
     <div className="App">

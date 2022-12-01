@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Grid, Paper, TextField, Button } from "@mui/material";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
+import GoogleIcon from "@mui/icons-material/Google";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
@@ -8,8 +9,8 @@ function Signup() {
   const navigate = useNavigate();
 
   const paperStyle = {
-    height: "85vh",
-    width: 350,
+    height: "110vh",
+    width: 380,
     margin: "10px auto",
     padding: 20,
   };
@@ -71,6 +72,23 @@ function Signup() {
       window.alert("Registration Failed");
       console.log("Registration Failed");
     } */
+  };
+
+  const googleCheck = async () => {
+    try {
+      const resp = await fetch("/auth/google", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+      });
+      const data = await resp.json();
+      console.log(data);
+    } catch (err) {
+      console.log("hi");
+      console.log(err);
+    }
   };
 
   return (
@@ -192,6 +210,18 @@ function Signup() {
             Sign up
           </Button>
         </form>
+
+        <Grid>
+          <h6>OR</h6>
+        </Grid>
+
+        <Button
+          onClick={googleCheck}
+          variant="outlined"
+          startIcon={<GoogleIcon />}
+        >
+          Sign In with Google
+        </Button>
       </Paper>
     </Grid>
   );

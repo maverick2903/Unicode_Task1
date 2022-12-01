@@ -1,30 +1,29 @@
 import React from "react";
 function Profile() {
-  let userdata;
-
-  const getProfilePage = async () => {
+  const getProfilePage = async (req, resp) => {
     try {
-      const resp = await fetch("/users", {
+      resp = await fetch("/users", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: localStorage.getItem("jwtoken"),
+          /* Authorization: localStorage.getItem("jwtoken"), */
         },
       });
 
       const data = await resp.json();
-      userdata = data;
+
+      console.log(data);
     } catch (err) {
       console.log(err);
+      console.log(localStorage.getItem("jwtoken"));
     }
   };
 
-  getProfilePage();
-  console.log(userdata);
   return (
     <>
       <h2>Profile Page</h2>
       <div>Welcome </div>
+      <button onClick={getProfilePage}>Click me</button>
     </>
   );
 }

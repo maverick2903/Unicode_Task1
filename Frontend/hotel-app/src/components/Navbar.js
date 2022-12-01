@@ -24,15 +24,18 @@ function Navbar_({ loginCheck, setLoginCheck }) {
               <LinkContainer to="/">
                 <Nav.Link>Home</Nav.Link>
               </LinkContainer>
-              <LinkContainer to="/signup">
-                <Nav.Link>Sign-in</Nav.Link>
-              </LinkContainer>
+
               {loginCheck ? (
                 <button onClick={Logout}>Log Out</button>
               ) : (
-                <LinkContainer to="/login">
-                  <Nav.Link>Login</Nav.Link>
-                </LinkContainer>
+                <>
+                  <LinkContainer to="/signup">
+                    <Nav.Link>Signup</Nav.Link>
+                  </LinkContainer>
+                  <LinkContainer to="/login">
+                    <Nav.Link>Login</Nav.Link>
+                  </LinkContainer>
+                </>
               )}
             </Nav>
           </Navbar.Collapse>
