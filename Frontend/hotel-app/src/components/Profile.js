@@ -1,16 +1,16 @@
 import React from "react";
 function Profile() {
+  let data;
   const getProfilePage = async (req, resp) => {
     try {
       resp = await fetch("/users", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          /* Authorization: localStorage.getItem("jwtoken"), */
+          Authorization: "Bearer " + localStorage.getItem("jwtoken"),
         },
       });
-
-      const data = await resp.json();
+      data = await resp.json();
 
       console.log(data);
     } catch (err) {

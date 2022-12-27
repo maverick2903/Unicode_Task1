@@ -4,6 +4,7 @@ import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import GoogleIcon from "@mui/icons-material/Google";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { signInWithGoogle } from "./FirebaseGoogle";
 
 function Signup() {
   const navigate = useNavigate();
@@ -62,32 +63,13 @@ function Signup() {
 
     const info = await resp.json();
     console.log(info.status);
-    window.alert("Registration done");
-    navigate("/");
-    /* if (info.status === 200) {
+    if (info.status === 200) {
       window.alert("Registration Successful");
       console.log("Registration Successful");
       navigate("/");
     } else {
       window.alert("Registration Failed");
       console.log("Registration Failed");
-    } */
-  };
-
-  const googleCheck = async () => {
-    try {
-      const resp = await fetch("/auth/google", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-        },
-      });
-      const data = await resp.json();
-      console.log(data);
-    } catch (err) {
-      console.log("hi");
-      console.log(err);
     }
   };
 
@@ -216,7 +198,10 @@ function Signup() {
         </Grid>
 
         <Button
-          onClick={googleCheck}
+          onClick={() => {
+            signInWithGoogle();
+            navigate("/");
+          }}
           variant="outlined"
           startIcon={<GoogleIcon />}
         >

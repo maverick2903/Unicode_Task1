@@ -3,6 +3,7 @@ import { Grid, Paper, Avatar, TextField, Button, Box } from "@mui/material";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import { Link, useNavigate } from "react-router-dom";
+import { signInWithGoogle } from "./FirebaseGoogle";
 
 function Login({ loginCheck, setLoginCheck }) {
   const navigate = useNavigate();
@@ -91,6 +92,19 @@ function Login({ loginCheck, setLoginCheck }) {
             onClick={handleInput}
           >
             Login
+          </Button>
+          <Grid>
+            <h6>OR</h6>
+          </Grid>
+          <Button
+            variant="contained"
+            onClick={() => {
+              signInWithGoogle();
+              setLoginCheck(true);
+              navigate("/");
+            }}
+          >
+            Login with Google
           </Button>
         </form>
         New User? <Link to="/signup">Sign Up now</Link>

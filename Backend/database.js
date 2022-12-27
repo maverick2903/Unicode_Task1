@@ -33,14 +33,4 @@ const postSchema = mongoose.Schema({
 });
 const User = mongoose.model("UserDB", postSchema);
 
-/* const OAuthSchema = mongoose.Schema({
-  googleId: {
-    type: String,
-    required: true,
-  },
-});
-
-const User_OAuth = mongoose.model("UserDB_OAuth", OAuthSchema); */
-
 module.exports = User;
-/* module.exports = User_OAuth; */

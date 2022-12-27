@@ -23,7 +23,7 @@ passport.use(
   })
 );
 
-const GoogleStrategy = require("passport-google-oauth2").Strategy;
+/* const GoogleStrategy = require("passport-google-oauth2").Strategy;
 
 passport.use(
   new GoogleStrategy(
@@ -34,14 +34,10 @@ passport.use(
       passReqToCallback: true,
     },
     function (request, accessToken, refreshToken, profile, done) {
-      /* profile = JSON.stringify(profile); */
       User.findOne({ email: profile.emails[0].value }, function (err, user) {
-        console.log("hi");
-        console.log(profile.emails[0].value);
         if (err) {
           return done(err);
         } else if (user) {
-          console.log("found");
           return done(null, user);
         } else {
           return done(err, false);
@@ -50,3 +46,12 @@ passport.use(
     }
   )
 );
+
+passport.serializeUser(function (user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function (user, done) {
+  done(null, user);
+});
+ */

@@ -7,6 +7,8 @@ function Navbar_({ loginCheck, setLoginCheck }) {
   const navigate = useNavigate();
   const Logout = () => {
     localStorage.removeItem("jwtoken");
+    localStorage.removeItem("gmail");
+    localStorage.removeItem("gname");
     window.alert("Logged Out");
     setLoginCheck(false);
     navigate("/");

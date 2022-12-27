@@ -22,7 +22,7 @@ router.post("/signup", async (req, resp) => {
   user
     .save()
     .then((user) => {
-      resp.send({
+      resp.status(200).send({
         success: true,
         message: "Sign Up successful",
         user: {
@@ -79,14 +79,14 @@ router.get(
 
 router.get(
   "/users",
-  /* passport.authenticate("jwt", { session: false }), */
+  passport.authenticate("jwt", { session: false }),
   async (req, resp) => {
     let data = await User.find();
     resp.status(200).send(data);
   }
 );
 
-router.get("/", (req, resp) => {
+router.get("/googlelink", (req, resp) => {
   resp.send('<a href="/auth/google">Authenticate with Google</a>');
 });
 
@@ -118,6 +118,8 @@ router.get(
   })
 );
 
-router.get("/protected");
+router.get("/protected", async (req, resp) => {
+  resp.send("This works!");
+});
 
 module.exports = router;
