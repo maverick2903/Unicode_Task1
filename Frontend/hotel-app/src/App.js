@@ -6,6 +6,7 @@ import Signup from "./components/Signup";
 import Home from "./components/Home";
 import Profile from "./components/Profile";
 import Navbar from "./components/Navbar";
+import Listing from "./components/Listing";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Protection from "./components/Protection";
 
@@ -34,6 +35,15 @@ function App() {
                 </Protection>
               }
             ></Route>
+            {/* <Route
+              path="/listing"
+              element={
+                <Protection loginCheck={loginCheck}>
+                  <Listing />
+                </Protection>
+              }
+            ></Route> */}
+            <Route path="/listing" element={<Listing />}></Route>
           </Routes>
         </div>
       </Router>

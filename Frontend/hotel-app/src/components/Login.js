@@ -45,7 +45,7 @@ function Login({ loginCheck, setLoginCheck }) {
       window.alert("Login Successful");
       localStorage.setItem("jwtoken", info.token);
       setLoginCheck(true);
-      navigate("/profile");
+      navigate("/");
     }
   };
 

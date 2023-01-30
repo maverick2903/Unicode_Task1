@@ -5,15 +5,18 @@ import GoogleIcon from "@mui/icons-material/Google";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { signInWithGoogle } from "./FirebaseGoogle";
+import backgrnd from "./Content/Signup/backgrnd.jpg";
+import { blue } from "@mui/material/colors";
 
 function Signup() {
   const navigate = useNavigate();
 
   const paperStyle = {
-    height: "110vh",
+    height: "120vh",
     width: 380,
     margin: "10px auto",
     padding: 20,
+    backgroundColor: blue,
   };
   const btnStyle = {
     margin: "20px 0px",
@@ -74,7 +77,15 @@ function Signup() {
   };
 
   return (
-    <Grid>
+    <Grid
+      class="backgrnd"
+      style={{
+        backgroundImage: `url(${backgrnd})`,
+        backgroundSize: "cover",
+        height: "120vh",
+        backgroundColor: blue,
+      }}
+    >
       <Paper elevation={10} style={paperStyle}>
         <Grid align="center">
           <PersonAddIcon fontSize="large" />
@@ -123,6 +134,7 @@ function Signup() {
             name="phone"
             variant="standard"
             style={{ marginLeft: 0, marginRight: 0 }}
+            type={"tel"}
             margin="normal"
             fullWidth
             value={user.phone}
