@@ -28,7 +28,12 @@ function Navbar_({ loginCheck, setLoginCheck }) {
               </LinkContainer>
 
               {loginCheck ? (
-                <button onClick={Logout}>Log Out</button>
+                <>
+                  <button onClick={Logout}>Log Out</button>
+                  <LinkContainer to="/listing">
+                    <Nav.Link>Add Listings</Nav.Link>
+                  </LinkContainer>
+                </>
               ) : (
                 <>
                   <LinkContainer to="/signup">

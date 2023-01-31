@@ -30,4 +30,9 @@ const addListing = async (req, resp) => {
   return resp.status(200).send(req.body);
 };
 
-module.exports = { addListing };
+const viewListing = async (req, resp) => {
+  let data = await Listing.find();
+  resp.status(200).send(data);
+};
+
+module.exports = { addListing, viewListing };

@@ -7,7 +7,7 @@ require("dotenv").config();
 const passport = require("passport");
 const { response } = require("express");
 require("../Authentication/passportAuth");
-const { addListing } = require("../Controllers/Listing");
+const { addListing, viewListing } = require("../Controllers/Listing");
 const upload = require("../Middleware/Middleware");
 const multer = require("multer");
 
@@ -114,7 +114,8 @@ router.get("/protected", async (req, resp) => {
   resp.send("This works!");
 });
 
-/* router.post("/listing/add", upload.array("image"), addListing); */
 router.post("/listing/add", upload.array("photos", 10), addListing);
+
+router.get("/listing/view", viewListing);
 
 module.exports = router;
